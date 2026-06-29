@@ -6261,23 +6261,29 @@
         function desktopPopulateYearFilter() {
             const select = document.getElementById('desktopFilterYear');
             if (!select) return;
+
             const years = new Set();
             data.transactions.forEach(t => {
                 const parts = t.date.split('-');
                 if (parts.length === 3) years.add(parts[0]);
             });
+
             const currentVal = select.value;
+            let curYear = null;
+
             select.innerHTML = `<option value="all">Semua Tahun</option>`;
             [...years].sort().reverse().forEach(y => {
                 select.innerHTML += `<option value="${y}" ${y === currentVal ? 'selected' : ''}>${y}</option>`;
             });
+
             if (!currentVal || currentVal === 'all') {
                 const now = new Date();
-                const curYear = String(now.getFullYear());
+                curYear = String(now.getFullYear());
                 if ([...years].includes(curYear)) {
                     select.value = curYear;
                 }
             }
+
             const popupYear = document.getElementById('filterPopupYear');
             if (popupYear) {
                 const popupVal = popupYear.value;
@@ -6607,23 +6613,29 @@
         function mobilePopulateYearFilter() {
             const select = document.getElementById('mobileFilterYear');
             if (!select) return;
+
             const years = new Set();
             data.transactions.forEach(t => {
                 const parts = t.date.split('-');
                 if (parts.length === 3) years.add(parts[0]);
             });
+
             const currentVal = select.value;
+            let curYear = null;
+
             select.innerHTML = `<option value="all">Semua</option>`;
             [...years].sort().reverse().forEach(y => {
                 select.innerHTML += `<option value="${y}" ${y === currentVal ? 'selected' : ''}>${y}</option>`;
             });
+
             if (!currentVal || currentVal === 'all') {
                 const now = new Date();
-                const curYear = String(now.getFullYear());
+                curYear = String(now.getFullYear());
                 if ([...years].includes(curYear)) {
                     select.value = curYear;
                 }
             }
+
             const popupYear = document.getElementById('filterPopupYear');
             if (popupYear) {
                 const popupVal = popupYear.value;
